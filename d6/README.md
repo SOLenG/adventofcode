@@ -45,6 +45,31 @@ To see how much margin of error you have, determine the <em>number of ways you c
 
 Determine the number of ways you could beat the record in each race. <em>What do you get if you multiply these numbers together?</em>
 
+---
+<em class="day-success">The first half of this puzzle is complete! It provides one gold star: *</em>
+
+--- Part Two ---
+
+As the race is about to start, you realize the piece of paper with race times and record distances you got earlier actually just has <span title="Keming!">very bad</span> [kerning](https://en.wikipedia.org/wiki/Kerning). There's really <em>only one race</em> - ignore the spaces between the numbers on each line.
+
+So, the example from before:
+
+```
+Time:      7  15   30
+Distance:  9  40  200
+```
+
+...now instead means this:
+
+```
+Time:      71530
+Distance:  940200
+```
+
+Now, you have to figure out how many ways there are to win this single race. In this example, the race lasts for <em><code>71530</code> milliseconds</em> and the record distance you need to beat is <em><code>940200</code> millimeters</em>. You could hold the button anywhere from <code>14</code> to <code>71516</code> milliseconds and beat the record, a total of <code><em>71503</em></code> ways!
+
+<em>How many ways can you beat the record in this one much longer race?</em>
+
 <style>
 body{
 background: #0f0f23;

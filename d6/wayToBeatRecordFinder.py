@@ -6,7 +6,8 @@ def way_to_beat_record():
         result = 1
         data = []
         for line in f.readlines():
-            data.append(re.findall(r'\d+', line))
+            datum = re.findall(r'\d+', line)
+            data.append([''.join(datum)])
 
         for i in range(len(data[0])):
             time = int(data[0][i])
@@ -21,16 +22,18 @@ def way_to_beat_record():
                 time_travel = time - approximation
                 distance = time_travel * approximation
                 if distance > record:
-                    approximation -= 1
+                    # doesn't work in part 1, used to optimize the process
+                    approximation -= ((distance-record)/distance) * approximation
                     continue
                 elif distance <= record:
-                    approximation += 1
+                    # doesn't work in part 1
+                    approximation += ((distance-record)/distance) * approximation
                 time_load_founded = True
             # calculation of the result
             result *= time - approximation * 2 + 1
 
         # result
-        print(result)
+        print(int(result))
 
 
 if __name__ == '__main__':
