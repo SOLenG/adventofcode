@@ -17,7 +17,7 @@ class Card(Enum):
     A = 14
     K = 13
     Q = 12
-    J = 11
+    J = 1
     T = 10
 
 
@@ -51,6 +51,18 @@ sort_cmp_key = cmp_to_key(sort)
 
 def sort_by_type(item):
     hand = [item[0].count(c) for c in set(item[0])]
+    # set a dict to find the J card and his count
+    hand2 = {c: item[0].count(c) for c in set(item[0])}
+
+    # update the hand array with J card data
+    if 'J' in hand2:
+        t = hand2['J']
+        if t < 5:
+            k = hand.index(t)
+            hand.pop(k)
+            k = hand.index(max(hand))
+            hand[k] += t
+
     if 5 in hand:
         return Hand.five_kind.value
     if 4 in hand:

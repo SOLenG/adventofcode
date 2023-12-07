@@ -20,13 +20,13 @@ In Camel Cards, you get a list of <em>hands</em>, and your goal is to order them
 
 Every hand is exactly one <em>type</em>. From strongest to weakest, they are:
 
-> <em>Five of a kind</em>, where all five cards have the same label: <code>AAAAA</code></li>
-> <em>Four of a kind</em>, where four cards have the same label and one card has a different label: <code>AA8AA</code></li>
-> <em>Full house</em>, where three cards have the same label, and the remaining two cards share a different label: <code>23332</code></li>
-> <em>Three of a kind</em>, where three cards have the same label, and the remaining two cards are each different from any other card in the hand: <code>TTT98</code></li>
-> <em>Two pair</em>, where two cards share one label, two other cards share a second label, and the remaining card has a third label: <code>23432</code></li>
-> <em>One pair</em>, where two cards share one label, and the other three cards have a different label from the pair and each other: <code>A23A4</code></li>
-> <em>High card</em>, where all cards' labels are distinct: <code>23456</code></li>
+> <em>Five of a kind</em>, where all five cards have the same label: <code>AAAAA</code>
+> <em>Four of a kind</em>, where four cards have the same label and one card has a different label: <code>AA8AA</code>
+> <em>Full house</em>, where three cards have the same label, and the remaining two cards share a different label: <code>23332</code>
+> <em>Three of a kind</em>, where three cards have the same label, and the remaining two cards are each different from any other card in the hand: <code>TTT98</code>
+> <em>Two pair</em>, where two cards share one label, two other cards share a second label, and the remaining card has a third label: <code>23432</code>
+> <em>One pair</em>, where two cards share one label, and the other three cards have a different label from the pair and each other: <code>A23A4</code>
+> <em>High card</em>, where all cards' labels are distinct: <code>23456</code>
 
 Hands are primarily ordered based on type; for example, every <em>full house</em> is stronger than any <em>three of a kind</em>.
 
@@ -48,13 +48,42 @@ This example shows five hands; each hand is followed by its <em>bid</em> amount.
 
 So, the first step is to put the hands in order of strength:
 
-> <code>32T3K</code> is the only <em>one pair</em> and the other hands are all a stronger type, so it gets rank <em>1</em>.</li>
-> <code>KK677</code> and <code>KTJJT</code> are both <em>two pair</em>. Their first cards both have the same label, but the second card of <code>KK677</code> is stronger (<code>K</code> vs <code>T</code>), so <code>KTJJT</code> gets rank <em>2</em> and <code>KK677</code> gets rank <em>3</em>.</li>
-> <code>T55J5</code> and <code>QQQJA</code> are both <em>three of a kind</em>. <code>QQQJA</code> has a stronger first card, so it gets rank <em>5</em> and <code>T55J5</code> gets rank <em>4</em>.</li>
+> <code>32T3K</code> is the only <em>one pair</em> and the other hands are all a stronger type, so it gets rank <em>1</em>.
+> <code>KK677</code> and <code>KTJJT</code> are both <em>two pair</em>. Their first cards both have the same label, but the second card of <code>KK677</code> is stronger (<code>K</code> vs <code>T</code>), so <code>KTJJT</code> gets rank <em>2</em> and <code>KK677</code> gets rank <em>3</em>.
+> <code>T55J5</code> and <code>QQQJA</code> are both <em>three of a kind</em>. <code>QQQJA</code> has a stronger first card, so it gets rank <em>5</em> and <code>T55J5</code> gets rank <em>4</em>.
 
 Now, you can determine the total winnings of this set of hands by adding up the result of multiplying each hand's bid with its rank (<code>765</code> * 1 + <code>220</code> * 2 + <code>28</code> * 3 + <code>684</code> * 4 + <code>483</code> * 5). So the <em>total winnings</em> in this example are <code><em>6440</em></code>.
 
 Find the rank of every hand in your set. <em>What are the total winnings?</em>
+
+---
+<em class="day-success">The first half of this puzzle is complete! It provides one gold star: *</em>
+
+--- Part Two ---
+
+To make things a little more interesting, the Elf introduces one additional rule. Now, <code>J</code> cards are [jokers](https://en.wikipedia.org/wiki/Joker_(playing_card)) - wildcards that can act like whatever card would make the hand the strongest type possible.
+
+To balance this, <em><code>J</code> cards are now the weakest</em> individual cards, weaker even than <code>2</code>. The other cards stay in the same order: <code>A</code>, <code>K</code>, <code>Q</code>, <code>T</code>, <code>9</code>, <code>8</code>, <code>7</code>, <code>6</code>, <code>5</code>, <code>4</code>, <code>3</code>, <code>2</code>, <code>J</code>.
+
+<code>J</code> cards can pretend to be whatever card is best for the purpose of determining hand type; for example, <code>QJJQ2</code> is now considered <em>four of a kind</em>. However, for the purpose of breaking ties between two hands of the same type, <code>J</code> is always treated as <code>J</code>, not the card it's pretending to be: <code>JKKK2</code> is weaker than <code>QQQQ2</code> because <code>J</code> is weaker than <code>Q</code>.
+
+Now, the above example goes very differently:
+
+```
+32T3K 765
+T55J5 684
+KK677 28
+KTJJT 220
+QQQJA 483
+```
+
+- <code>32T3K</code> is still the only <em>one pair</em>; it doesn't contain any jokers, so its strength doesn't increase.
+- <code>KK677</code> is now the only <em>two pair</em>, making it the second-weakest hand.
+- <code>T55J5</code>, <code>KTJJT</code>, and <code>QQQJA</code> are now all <em>four of a kind</em>! <code>T55J5</code> gets rank 3, <code>QQQJA</code> gets rank 4, and <code>KTJJT</code> gets rank 5.
+
+With the new joker rule, the total winnings in this example are <code><em>5905</em></code>.
+
+Using the new joker rule, find the rank of every hand in your set. <em>What are the new total winnings?</em>
 
 <style>
 body{
