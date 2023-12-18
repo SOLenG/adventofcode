@@ -9,6 +9,10 @@ class Node(object):
         assert isinstance(node, Node)
         return self.value - node.value
 
+    def __rsub__(self, node):
+        assert isinstance(node, int)
+        return self.value - node
+
     def __add__(self, node):
         assert isinstance(node, Node)
         return self.value + node.value
@@ -43,6 +47,14 @@ class Tree(object):
 
         return value
 
+    # find the previous value of the tree
+    def previous_value(self):
+        value = 0
+        for n in reversed(self.nodes):
+            value -= self.nodes[n][0]
+
+        return value
+
 
 def environmental_instability_finder() -> None:
     with open('input.txt', "r+") as f:
@@ -55,7 +67,7 @@ def environmental_instability_finder() -> None:
         # generating of the tree and get the next value
         for tree in trees:
             tree.build()
-            value += tree.next_value()
+            value += tree.previous_value()
 
         # result
         print(value)
